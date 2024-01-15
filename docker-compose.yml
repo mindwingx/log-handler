@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: service_db
+    image: "mysql:latest"
+    ports:
+      - "33060:3306"
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      MYSQL_DATABASE: '${DATABASE}'
+      MYSQL_ROOT_PASSWORD: '${ROOT_PASSWORD}'
+      MYSQL_USER: '${USERNAME}'
+      MYSQL_PASSWORD: '${PASSWORD}'
+    networks:
+      - core-service
+
+networks:
+  core-service:
