@@ -7,6 +7,7 @@ import (
 	sdstudio "github.com/mindwingx/log-handler"
 	"github.com/mindwingx/log-handler/utils"
 	"github.com/spf13/cobra"
+	"log"
 	"math/rand"
 	"os"
 	"sync"
@@ -20,6 +21,12 @@ var logFileSeederCmd = &cobra.Command{
 		// seeding primary variables
 		wgCap, logFilesCounter := 1000, 1000
 		st := time.Now()
+
+		// create the logs directory if not exists
+		if err := os.MkdirAll(fmt.Sprintf("%s/logs", sdstudio.Root()), os.ModePerm); err != nil {
+			log.Fatal("Error creating logs directory:", err)
+			// todo: it is recommended to trace error by the Sentry
+		}
 
 		//the sync package variables
 		wg := sync.WaitGroup{}
