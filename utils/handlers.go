@@ -2,9 +2,11 @@ package utils
 
 import "fmt"
 
-func PanicHandler() {
+func PanicHandler() (res string) {
 	rec := recover()
 	if rec != nil {
-		fmt.Println("RECOVER: ", rec)
+		res = fmt.Sprintf("RECOVER: %s", rec)
 	}
+
+	return
 }

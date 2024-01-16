@@ -34,5 +34,6 @@ func Execute(sql mysql.SqlAbstraction) {
 }
 
 func init() {
+	rootCmd.AddCommand(logFileSeederCmd)
 	rootCmd.AddCommand(logManagerCmd)
 }

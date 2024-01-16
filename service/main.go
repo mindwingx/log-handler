@@ -6,6 +6,7 @@ import (
 	"github.com/mindwingx/log-handler/cmd"
 	"github.com/mindwingx/log-handler/database/mysql"
 	"github.com/mindwingx/log-handler/registry"
+	"github.com/mindwingx/log-handler/utils"
 	"log"
 	"os"
 	"os/signal"
@@ -13,7 +14,8 @@ import (
 )
 
 func main() {
-	mutex, err := filemutex.New("/tmp/log-handler.lock")
+	mutex, err := filemutex.New(utils.TmpLockFile)
+
 	if err != nil {
 		log.Fatal("/tmp directory does not exist or lock file cannot be created!")
 	}
@@ -31,6 +33,7 @@ func main() {
 
 	db := mysql.NewSql(reg)
 	db.InitSql()
+	db.Migrate()
 
 	cmd.Execute(db)
 
