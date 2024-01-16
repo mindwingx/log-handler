@@ -24,11 +24,11 @@ type SqlAbstraction interface {
 
 type (
 	Sql struct {
-		config Cfg
+		config config
 		DB     *gorm.DB
 	}
 
-	Cfg struct {
+	config struct {
 		Debug              bool   `mapstructure:"DEBUG"`
 		Host               string `mapstructure:"HOST"`
 		Port               string `mapstructure:"PORT"`

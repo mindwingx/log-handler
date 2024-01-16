@@ -1,16 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"github.com/alexflint/go-filemutex"
 	"github.com/mindwingx/log-handler/cmd"
 	"github.com/mindwingx/log-handler/database/mysql"
 	"github.com/mindwingx/log-handler/registry"
 	"github.com/mindwingx/log-handler/utils"
 	"log"
-	"os"
-	"os/signal"
-	"syscall"
 )
 
 func main() {
@@ -26,7 +22,10 @@ func main() {
 		return
 	}
 
-	mutex.Lock()
+	err = mutex.Lock()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	reg := registry.NewViper()
 	reg.InitRegistry()
@@ -35,13 +34,9 @@ func main() {
 	db.InitSql()
 	db.Migrate()
 
-	cmd.Execute(db)
-
-	fmt.Println("Do interrupt!")
-	c := make(chan os.Signal, 2)
-	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
-	<-c
-	fmt.Println("Interrupt is detected")
-
-	mutex.Unlock()
+	cmd.Execute(reg, db)
+	err = mutex.Unlock()
+	if err != nil {
+		log.Fatal(err)
+	}
 }

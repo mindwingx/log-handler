@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/mindwingx/log-handler/database/mysql"
+	"github.com/mindwingx/log-handler/registry"
 	"github.com/spf13/cobra"
 	"log"
 )
@@ -16,9 +17,17 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-func Execute(sql mysql.SqlAbstraction) {
+type config struct {
+	LogCounter int `mapstructure:"SEEDER_LOG_COUNTER"`
+}
+
+func Execute(registry registry.RegAbstraction, sql mysql.SqlAbstraction) {
+	var conf config
+	registry.Parse(&conf)
+
 	rootCmd.PersistentPreRun = func(cmd *cobra.Command, args []string) {
 		ctx := context.WithValue(cmd.Context(), "database", sql)
+		ctx = context.WithValue(cmd.Context(), "log_counter", conf.LogCounter)
 		cmd.SetContext(ctx)
 	}
 
