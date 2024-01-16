@@ -18,7 +18,8 @@ var rootCmd = &cobra.Command{
 }
 
 type config struct {
-	LogCounter int `mapstructure:"SEEDER_LOG_COUNTER"`
+	LogCounter  int `mapstructure:"SEEDER_LOG_COUNTER"`
+	WorkerCount int `mapstructure:"RUNNER_WORKER_COUNT"`
 }
 
 func Execute(registry registry.RegAbstraction, sql mysql.SqlAbstraction) {
@@ -26,9 +27,9 @@ func Execute(registry registry.RegAbstraction, sql mysql.SqlAbstraction) {
 	registry.Parse(&conf)
 
 	rootCmd.PersistentPreRun = func(cmd *cobra.Command, args []string) {
-		ctx := context.WithValue(cmd.Context(), "database", sql)
-		ctx = context.WithValue(cmd.Context(), "log_counter", conf.LogCounter)
-		cmd.SetContext(ctx)
+		cmd.SetContext(context.WithValue(cmd.Context(), "database", sql))
+		cmd.SetContext(context.WithValue(cmd.Context(), "log_counter", conf.LogCounter))
+		cmd.SetContext(context.WithValue(cmd.Context(), "worker_count", conf.WorkerCount))
 	}
 
 	rootCmd.PersistentPostRun = func(cmd *cobra.Command, args []string) {
