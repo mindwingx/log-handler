@@ -1,13 +1,4 @@
-package utils
-
-import "time"
-
-const (
-	EnvFile                        = "env"
-	SlowSqlThreshold time.Duration = 5
-	TmpLockFile                    = "/tmp/log-handler.lock"
-	TimestampLayout  string        = "2006-01-02 03:04:05"
-)
+package constants
 
 const (
 	Trace = "trace" //Only when I would be "tracing" the code and trying to find one part of a function specifically.

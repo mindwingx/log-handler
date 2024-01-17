@@ -1,6 +1,9 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/google/uuid"
+)
 
 func PanicHandler() (res string) {
 	rec := recover()
@@ -9,4 +12,9 @@ func PanicHandler() (res string) {
 	}
 
 	return
+}
+
+func NewUuid() string {
+	val, _ := uuid.NewRandom()
+	return val.String()
 }

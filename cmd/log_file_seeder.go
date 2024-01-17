@@ -5,7 +5,7 @@ import (
 	"github.com/brianvoe/gofakeit/v6"
 	"github.com/fatih/color"
 	src "github.com/mindwingx/log-handler"
-	"github.com/mindwingx/log-handler/utils"
+	"github.com/mindwingx/log-handler/constants"
 	"github.com/spf13/cobra"
 	"log"
 	"math/rand"
@@ -41,7 +41,8 @@ var logFileSeederCmd = &cobra.Command{
 
 func evaluateLogsDirExistence() {
 	if err := os.MkdirAll(fmt.Sprintf("%s/logs", src.Root()), os.ModePerm); err != nil {
-		log.Fatal("Error creating logs directory:", err)
+		color.Red(err.Error())
+		log.Fatal("failed to creating logs directory")
 		// todo: it is recommended to trace error by the Sentry
 	}
 }
@@ -89,7 +90,7 @@ func (lg *logGenerator) dummyLogFileGenerator() {
 	if err != nil {
 		// just a snapshot in STDOUT
 		// todo: it is recommended to trace error by the Sentry
-		fmt.Println(err.Error())
+		color.Red(err.Error())
 	}
 
 	defer file.Close()
@@ -99,8 +100,8 @@ func (lg *logGenerator) dummyLogFileGenerator() {
 		randLogRange := rand.Intn(5)
 		dummyLog += fmt.Sprintf(
 			"[%s] - %s: %s\n",
-			time.Now().Format(utils.TimestampLayout),
-			utils.LogLevels[randLogRange],
+			time.Now().Format(constants.TimestampLayout),
+			constants.LogLevels[randLogRange],
 			gofakeit.HackerPhrase(),
 		)
 	}
@@ -111,6 +112,6 @@ func (lg *logGenerator) dummyLogFileGenerator() {
 	if err != nil {
 		// just a snapshot in STDOUT
 		// todo: it is recommended to trace error by the Sentry
-		fmt.Println(err.Error())
+		color.Red(err.Error())
 	}
 }

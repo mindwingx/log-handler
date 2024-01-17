@@ -3,8 +3,8 @@ package mysql
 import (
 	"fmt"
 	src "github.com/mindwingx/log-handler"
+	"github.com/mindwingx/log-handler/constants"
 	"github.com/mindwingx/log-handler/registry"
-	"github.com/mindwingx/log-handler/utils"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -148,10 +148,10 @@ func (g *Sql) newGormLog() logger.Interface {
 	return logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{
-			SlowThreshold:             utils.SlowSqlThreshold * time.Second, // Slow SQL threshold
-			LogLevel:                  logger.Warn,                          // Log level
-			IgnoreRecordNotFoundError: false,                                // Ignore ErrRecordNotFound error for logger
-			Colorful:                  true,                                 // Disable color
+			SlowThreshold:             constants.SlowSqlThreshold * time.Second, // Slow SQL threshold
+			LogLevel:                  logger.Warn,                              // Log level
+			IgnoreRecordNotFoundError: false,                                    // Ignore ErrRecordNotFound error for logger
+			Colorful:                  true,                                     // Disable color
 		})
 }
 
