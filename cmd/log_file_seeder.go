@@ -43,7 +43,7 @@ func evaluateLogsDirExistence() {
 	if err := os.MkdirAll(fmt.Sprintf("%s/logs", src.Root()), os.ModePerm); err != nil {
 		color.Red(err.Error())
 		log.Fatal("failed to creating logs directory")
-		// todo: it is recommended to trace error by the Sentry
+		// todo: it is recommended to trace errors by the Sentry
 	}
 }
 
@@ -77,7 +77,7 @@ func (lg *logGenerator) dummyLogFileGenerator() {
 	filePath := fmt.Sprintf("%s/logs/%d.log", src.Root(), time.Now().UnixNano())
 	//inquire file existence
 	if _, statErr := os.Stat(filePath); statErr == nil {
-		// if file exists, decrease the counter to create new file
+		//if the file exists, increase the counter to create a new file
 		color.Yellow("log file exists:\n", filePath, "\n")
 		lg.logCounter++
 		lg.mx.Unlock()
@@ -89,7 +89,7 @@ func (lg *logGenerator) dummyLogFileGenerator() {
 	file, err := os.Create(filePath)
 	if err != nil {
 		// just a snapshot in STDOUT
-		// todo: it is recommended to trace error by the Sentry
+		// todo: it is recommended to trace errors by the Sentry
 		color.Red(err.Error())
 	}
 
@@ -106,12 +106,12 @@ func (lg *logGenerator) dummyLogFileGenerator() {
 		)
 	}
 
-	// append multiple log along with current log file by inserting new ones
-	// to write is done outside the loop to avoid extra probable read and write
+	// append multiple logs along with the current log file by inserting new ones
+	// to write is done outside the loop to avoid extra probable read-and-write
 	_, err = file.WriteString(dummyLog)
 	if err != nil {
 		// just a snapshot in STDOUT
-		// todo: it is recommended to trace error by the Sentry
+		// todo: it is recommended to trace errors by the Sentry
 		color.Red(err.Error())
 	}
 }
