@@ -6,6 +6,7 @@ type (
 	Task func()
 
 	Scheduler struct {
+		wg      sync.WaitGroup
 		tasks   []Task
 		workers int
 	}
@@ -13,6 +14,7 @@ type (
 
 func InitScheduler(workers int) *Scheduler {
 	return &Scheduler{
+		wg:      sync.WaitGroup{},
 		workers: workers,
 	}
 }
@@ -22,16 +24,14 @@ func (s *Scheduler) AddTask(task Task) {
 }
 
 func (s *Scheduler) Start() {
-	var wg sync.WaitGroup
-
 	taskCh := make(chan Task, len(s.tasks))
 	resultCh := make(chan struct{})
 
 	// Start workers
 	for i := 0; i < s.workers; i++ {
-		wg.Add(1)
+		s.wg.Add(1)
 		go func() {
-			defer wg.Done()
+			defer s.wg.Done()
 			for task := range taskCh {
 				task()
 			}
@@ -48,7 +48,7 @@ func (s *Scheduler) Start() {
 
 	// Wait for all tasks to complete
 	go func() {
-		wg.Wait()
+		s.wg.Wait()
 		close(resultCh)
 	}()
 

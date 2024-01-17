@@ -19,7 +19,6 @@ func main() {
 	errLock := mutex.TryLock()
 	if errLock != nil {
 		log.Fatal("This program is already running on this server!")
-		return
 	}
 
 	err = mutex.Lock()
