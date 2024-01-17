@@ -1,8 +1,13 @@
 module github.com/mindwingx/log-handler
 
-go 1.21.6
+go 1.19
 
 require (
+	github.com/alexflint/go-filemutex v1.3.0
+	github.com/brianvoe/gofakeit/v6 v6.27.0
+	github.com/da0x/golang v1.0.4
+	github.com/fatih/color v1.16.0
+	github.com/google/uuid v1.5.0
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.18.2
 	gorm.io/driver/mysql v1.5.2
@@ -10,13 +15,8 @@ require (
 )
 
 require (
-	github.com/alexflint/go-filemutex v1.3.0 // indirect
-	github.com/brianvoe/gofakeit/v6 v6.27.0 // indirect
-	github.com/da0x/golang v1.0.4 // indirect
-	github.com/fatih/color v1.16.0 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
-	github.com/google/uuid v1.5.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect

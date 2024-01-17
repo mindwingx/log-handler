@@ -1,6 +1,23 @@
 version: "3.8"
 
 services:
+  core:
+    container_name: core_service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    #restart: always
+    tty: true
+    deploy:
+      mode: replicated
+      replicas: 1
+    volumes:
+      - "./logs:/app/logs"
+    depends_on:
+      - db
+    networks:
+      - log-service
+
   db:
     container_name: service_db
     image: "mysql:latest"
@@ -16,7 +33,7 @@ services:
       MYSQL_USER: '${USERNAME}'
       MYSQL_PASSWORD: '${PASSWORD}'
     networks:
-      - core-service
+      - log-service
 
 networks:
-  core-service:
+  log-service:
