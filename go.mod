@@ -12,9 +12,11 @@ require (
 require (
 	github.com/alexflint/go-filemutex v1.3.0 // indirect
 	github.com/brianvoe/gofakeit/v6 v6.27.0 // indirect
+	github.com/da0x/golang v1.0.4 // indirect
 	github.com/fatih/color v1.16.0 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
+	github.com/google/uuid v1.5.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect

@@ -2,7 +2,7 @@ package registry
 
 import (
 	src "github.com/mindwingx/log-handler"
-	"github.com/mindwingx/log-handler/utils"
+	"github.com/mindwingx/log-handler/constants"
 	registry "github.com/spf13/viper"
 	"log"
 )
@@ -23,7 +23,7 @@ func NewViper() RegAbstraction {
 func (v *Viper) InitRegistry() {
 	v.AddConfigPath(src.Root())
 	v.SetConfigName(".env")
-	v.SetConfigType(utils.EnvFile)
+	v.SetConfigType(constants.EnvFile)
 	v.AutomaticEnv()
 
 	err := v.ReadInConfig()
