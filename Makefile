@@ -1,4 +1,5 @@
 run:
+	cp .env.shared .env
 	@echo "Starting Docker..."
 	docker-compose up -d
 	@echo "Docker containers started!"

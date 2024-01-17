@@ -6,7 +6,7 @@ the relevant data into the database. The service captures crucial information su
 log levels, and log messages.
 
 ## Features
-Features
+
 - The details of log files are printed in the terminal STDOUT for easy monitoring.
 - You can filter log details during the database insertion process. Modify the `LOG_LEVEL_CRITERIA` key in the `.env` file to your desired log level (options: trace, debug, info, warn, error, fatal).
 - The log service is interactive, allowing you to run it through either `docker exec` inside the container or as a direct shell command.
