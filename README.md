@@ -5,13 +5,13 @@ It utilizes the `Cobra CLI` to create log files in the `./logs/` directory, pars
 the relevant data into the database. The service captures crucial information such as log file names, timestamps, 
 log levels, and log messages.
 
-## Features
+## Options
 
 - The details of log files are printed in the terminal STDOUT for easy monitoring.
 - You can filter log details during the database insertion process. Modify the `LOG_LEVEL_CRITERIA` key in the `.env` file to your desired log level (options: trace, debug, info, warn, error, fatal).
 - The log service is interactive, allowing you to run it through either `docker exec` inside the container or as a direct shell command.
 - The `./logs` directory is a shared Docker volume, and log files are accessible in the project root path by running the provided commands.
-- The key `SEEDER_LOG_COUNTER` obtains the count of seeder generating file.
+- The key `SEEDER_LOG_COUNTER` obtains the count of the seeder-generating file.
 - The key `RUNNER_WORKER_COUNT` obtains the count of workers of logger runner to speed up or manage resources.
 
 ### Quick Start
@@ -51,7 +51,7 @@ make down
 ls ./logs | wc -l
 ```
 
-- To parse, read, and insert into database:
+- To parse, read, and insert into the database:
 
 ```shell
 ./logger logs:run
